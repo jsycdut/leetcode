@@ -41,9 +41,13 @@ public class Manacher{
 			}
 			maxPointer = manacher[i] > maxPointer ? i : maxPointer;
 		}
-		int subLength = manacher[maxPointer] / 2;
-		int startPosition = maxPointer - manacher[maxPointer] + 2;
-		int subStartPosition = (startPosition / 2) - 1;
+		int subLength = manacher[maxPointer] - 1;
+		/*
+		 *int startPosition = maxPointer - manacher[maxPointer] + 2;
+		 *int subStartPosition = (startPosition / 2) - 1;
+		 * it can be replaced by next statement
+		 */
+		int subStartPosition = (maxPointer - manacher[maxPointer]) / 2;
 		return s.substring(subStartPosition, subStartPosition + subLength);
 	}
 }
