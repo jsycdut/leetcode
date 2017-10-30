@@ -13,6 +13,7 @@
  *区别，在进行加特殊字符的处理之后，不管原来你的字符串是奇数长度还是偶数
  *长度，都会变成奇数长度，使得求解回文串中的中间向两边扩的方式得以应用
  *时刻注意可能的数组越界，比如for循环里面的边界
+ *一篇讲manacher算法的文章 https://www.diycode.cc/topics/293
  */
 public class Manacher{
 	public String manacherAlgorithm(String s){
