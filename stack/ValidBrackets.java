@@ -8,8 +8,14 @@ public class ValidBrackets{
 	 *invalid brackets ([)
          *simply using the stack to validate the string
 	 *when you come into a left bracket, push it into the stack
-	 *a right bracket, pop it out.
+	 *a right bracket, pop the left bracket out.
 	 *if the brackets is valid, the stack will be empty after you traverse the whole sequence
+	 */
+
+	/*
+	 *version 1
+         *if expression 
+	 *I got to say I've used too much if and else
 	 */
 	public boolean isValid(String s){
 		int length = s.length();
@@ -47,6 +53,12 @@ public class ValidBrackets{
 		}
 		return stack.empty();
 	}
+	
+	/*
+	 *version 2
+	 *swich statement
+	 *a little bit clean and readable
+	 */
 	public boolean validateBrackets(String s){
 		Stack<Character> stack = new Stack<>();
 		int length = s.length();
