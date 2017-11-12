@@ -22,7 +22,6 @@ int main()
 		my_stack.push(n);
 		input = input / radix;
 	}
-
 	cout << "your result is: "<< endl;
 	while(!my_stack.empty())
 	{
