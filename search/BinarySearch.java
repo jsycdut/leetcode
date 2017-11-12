@@ -1,5 +1,5 @@
 public class BinarySearch{
-	public int binarySearch(int[] a, int left, int right, int key){
+	public int loopBinarySearch(int[] a, int left, int right, int key){
 		int mid = 0;
 		while(left <= right){
 			mid = left + (right - left) / 2;
@@ -12,5 +12,16 @@ public class BinarySearch{
 			}
 		}
 		return -1;
+	}
+	
+	public int recursionBinarySearch(int[]a, int left, int right, int key){
+		int mid = left + (right - left) / 2;
+		if(a[mid] > key){
+			return recursionBinarySearch(a, left, right -1 , key);
+		}
+		if(a[mid] < key){
+			return recursionBinarySearch(a, left + 1, right, key);
+		}
+		return mid;
 	}
 }
