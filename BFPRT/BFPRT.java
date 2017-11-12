@@ -69,6 +69,5 @@ public class BFPRT{
 		}else{
 			return ans;
 		}
-		return -1;
 	}	
 }
