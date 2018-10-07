@@ -1,0 +1,6 @@
+stack is a very important data structure,
+it complys the rule of  "last in first out"
+the feature is really important when we are designing program
+
+specific data structure do specific things
+that's what we called "a fixed sum is for a fixed purpose"
