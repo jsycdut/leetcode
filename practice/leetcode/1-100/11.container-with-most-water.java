@@ -36,24 +36,29 @@
  * Output: 49
  * 
  */
-
-/*
- * 暴力解法，无奈为之
- * brute force
- * 
- */
 class Solution {
+    // 双指针，位于0, height.length - 1
+    // 此时确保了距离最大，接下来要扩大面积
+    // 只能是通过移动两个指针之一，来扩大y值，而面积是和较小的y有关的
+    // 要移动两者y值较小的那个，因为这样才能增大面积扩大的趋势
+    // 如果移动y值较大的那个，那么他带来收益的可能性是要小于移动y值较小的那个的带来的收益
+    // 因为，在横轴距离都是减1的情况下，移动较小的y，更有可能把两个y值的较小值调大
+    // 这种更有可能，是解决本题的关键
+    // 切忌，不能通过移动谁之后面积大来判断，那样只是当前步最优，不是全局最优
+    // 这种解法，只需要O(n)的复杂度，很棒!!!
     public int maxArea(int[] height) {
-        // 边界
         if (height == null) return 0;
-
-        int ans = 0;
-        int len = height.length;
-        for(int p = 1; p < len; p++) {
-            for(int q = 0; q < p; q++) {
-                ans = Math.max(ans, (p - q) * Math.min(height[p], height[q]));
+        int i = 0;
+        int j = height.length - 1;
+        int max = 0;
+        while (i < j) {
+            max = Math.max(max, Math.min(height[i], height[j]) * (j - i));
+            if (height[i] < height[j]) {
+                i++;
+            } else {
+                j--;
             }
         }
-        return ans;
+        return max;
     }
 }
