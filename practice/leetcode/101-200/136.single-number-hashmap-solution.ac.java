@@ -45,10 +45,10 @@ class Solution {
         int len = nums.length;
 
         for (int i = 0; i < len; i++) {
-            if (map.get((Integer)nums[i]) == null) {
-                map.put((Integer)nums[i], 1);
+            if (map.get(nums[i]) == null) {
+                map.put(nums[i], 1);
             } else {
-                map.remove((Integer)nums[i]);
+                map.remove(nums[i]);
             }
         }
 
