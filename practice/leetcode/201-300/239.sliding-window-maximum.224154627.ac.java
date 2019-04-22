@@ -47,12 +47,33 @@ class Solution {
         int[] ans = new int[nums.length - k + 1];
 
         // 解法1，暴力解法O(M * K)，M为nums长度，K为窗口大小k
-        for (int i = 0; i < nums.length - k + 1; i++) {
-            int max = Integer.MIN_VALUE;
-            for (int j = 0; j < k; j++) {
-                max = Math.max(max, nums[i + j]);
-            }
-            ans[i] = max;
+        // for (int i = 0; i < nums.length - k + 1; i++) {
+        //     int max = Integer.MIN_VALUE;
+        //     for (int j = 0; j < k; j++) {
+        //         max = Math.max(max, nums[i + j]);
+        //     }
+        //     ans[i] = max;
+        // }
+        //
+        // return ans;
+
+        // 解法2，双端队列
+        // 思路：由于只需要找到窗口里面的最大值
+        // 所以只需要维护一个双端队列，其特点是：队首始终保留着窗口里面的最大值，然后依次递减，
+        // 遍历nums数组，每次新出现一个值的时候，如果比队列尾端的小，则不管这个值
+        // 反之，从队列尾部开始，把所有比新值小的一一移除，然后将将这个新值扔进去（因为我们只关心窗口里面较大的值）
+        // 如果队列头部值的索引恰好是要移除的值的索引，就将其去掉(因为这个值不在窗口里面了)
+        // 此时，队列头部的值就是窗口里面的最大值了
+        Deque<Integer> deque = new LinkedList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[deque.getLast()] <= nums[i]) deque.removeLast();
+
+            deque.addLast(i);
+
+            if (deque.getFirst() == i - k) deque.removeFirst();
+
+            if (deque.getLast() >= k - 1) ans[i + 1 - k] = nums[deque.getFirst()];
         }
 
         return ans;
