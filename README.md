@@ -1,8 +1,8 @@
-# Algorithm
+# LeetCode Java
 
 个人leetcode，剑指offer题解以及思路，同时也存放一些算法的理论知识。
 
-**项目结构介绍**
+**目录内容介绍**
 
 ```
 algorithms/
