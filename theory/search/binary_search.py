@@ -17,3 +17,4 @@ def loop_binary_search(arr, start, end, key):
             start = mid + 1
         else:
             return mid
+    return -1
