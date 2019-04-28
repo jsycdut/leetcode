@@ -7,7 +7,6 @@ public class Permutaion {
         int[] arr = {1, 2, 3, 4};
         dfs(arr, 0, arr.length);
         optimizedDFS(arr, 0, arr.length);
-
     }
 
     static void dfs(int[] arr, int step, int term) {
