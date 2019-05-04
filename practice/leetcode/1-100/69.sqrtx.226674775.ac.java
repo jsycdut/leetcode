@@ -38,12 +38,33 @@
  */
 class Solution {
     public int mySqrt(int x) {
-        // 利用API
+        // 解法I API作弊
         // Math.sqrt(double x)
         // 或者Math.pow(double x, double n)
-        if (x <= 0) return 0;
+        // if (x <= 0) return 0;
+        // return (int)(Math.sqrt((double)x));
 
-        return (int)(Math.sqrt((double)x));
+        // 解法II 二分搜索, 范围[1, x]
+        // 不过需要注意可能在求mid的平方的时候溢出, 导致判断不准的问题
+        // 解决办法就是使用long
+        if (x <= 0) return x;
+
+        long lb = 1;
+        long ub = x;
+
+        while (ub - lb > 1) {
+            long mid = lb + (ub - lb) / 2;
+            long pow = mid * mid;
+
+            // 下面的判断就会将解限制在lb这个下界中
+            if (pow > x) {
+                ub = mid;
+            } else {
+                lb = mid;
+            }
+        }
+
+        return (int)lb;
     }
 }
 
