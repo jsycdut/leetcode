@@ -51,5 +51,12 @@
 #
 # Read from the file words.txt and output the word frequency list to stdout.
 
+# tr的s选项将多个替换的字符缩成1个，这里就是将多个空格缩减成1个
+# 然后把空格替换为换行符，方便以后的排序
+# sort就把一行行的文本排序
+# uniq -c就把所有重复的做个统计
+# sort -rg就把统计结果按照数字逆序排列
+# 最后awk输出
+# 要想理解，写个words文本文件，一个个命令的执行就可以看清了
 cat words.txt | tr -s ' ' '\n' | sort | uniq -c | sort -rg | awk '{ print $2, $1 }'
 
