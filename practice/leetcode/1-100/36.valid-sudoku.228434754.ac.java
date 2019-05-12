@@ -87,7 +87,7 @@ class Solution {
         // 然后看了一个题解的视频，才发现这道题可以用更加优秀的思想解出来
         // 如果面试考这道题，解法I只能说合格，解法II比较好，解法III才是真的优秀
 
-        // 解法I：首先验证大的行和列，然后验证9个小盒子，写的很老实，不够优秀
+        // 解法I：首先验证大的行和列，然后验证9个小盒子，写的很老实
         // 老实说，通过hashset来验证元素个数的做法太愚蠢
         // 解法III同样使用hashest，但是会诠释什么叫优秀
         // boolean ans = validBox(board);
@@ -96,32 +96,87 @@ class Solution {
         // }
         // return ans;
 
+        // ================================================================================
+
         // 解法II：同样是验证，但是将行和列以及小盒子的验证写到了一起
         // 比解法I少写了不少代码
+        // 时间复杂度：O(n^3)
+        // 空间复杂度：O(1)
+        //
+        // 所有不符合条件的全部用return false，剩下最后的情况就是return true了
+        // for (int i = 0; i < board.length; i++) {
+        //   for (int j = 0; j < board[0].length; j++) {
+        //     if (board[i][j] == '.') continue;
+        //
+        //     // 验证行
+        //     for (int col = 0; col < board[0].length; col++) {
+        //       if (j == col) continue;
+        //       if (board[i][col] == board[i][j]) return false;
+        //     }
+        //
+        //     // 验证列
+        //     for (int row = 0; row < board.length; row++) {
+        //       if (i == row) continue;
+        //       if (board[row][j] == board[i][j]) return false;
+        //     }
+        //
+        //     // 验证小方格
+        //     for (int x = i / 3 * 3; x < (i / 3 + 1) * 3; x++) {
+        //       for (int y = j / 3 * 3; y <  (j / 3 + 1) * 3; y++) {
+        //         if (x == i && y == j) continue;
+        //         if (board[x][y] == board[i][j]) return false;
+        //       }
+        //     }
+        //   }
+        // }
+        // return true;
+
+        // ================================================================================
+        //
+        // 解法III：真正优秀的解法，需要注意的点如下
+        // 1. set的add方法在添加重复的元素的时候会返回false，可以利用这个特点
+        //    没必要像解法I中那样去算集合中的元素个数
+        // 2. 特别注意求解小方格里面重复元素的解法
 
         for (int i = 0; i < board.length; i++) {
+          Set<Character> row = new HashSet<>();
+          Set<Character> col = new HashSet<>();
+          Set<Character> cub = new HashSet<>();
+
           for (int j = 0; j < board[0].length; j++) {
-            if (board[i][j] == '.') continue;
+            if (board[i][j] != '.' && !row.add(board[i][j])) return false;
+            if (board[j][i] != '.' && !col.add(board[j][i])) return false;
 
-            // 验证行
-            for (int col = 0; col < board[0].length; col++) {
-              if (j == col) continue;
-              if (board[i][col] == board[i][j]) return false;
-            }
+            // 下面的确实是太酷了，利用i和j依次实现了9个小方格的遍历
+            // x和y代表着每个小方格里面的9个坐标，太棒了
+            //
+            // 5  3  .  .  7  .  .  .  .
+            // 6  .  .  1  9  5  .  .  .
+            // .  9  8  .  .  .  .  6  .
+            // 8  .  .  .  6  .  .  .  3
+            // 4  .  .  8  .  3  .  .  1
+            // 7  .  .  .  2  .  .  .  6
+            // .  6  .  .  .  .  2  8  .
+            // .  .  .  4  1  9  .  .  5
+            // .  .  .  .  8  .  .  7  9
+            //
+            // rowIndex colIndex依次代表着每一行三个小方格的横坐标和纵坐标
+            // 假设上面9x9的9个小方格的序号如下
+            // 1 2 3
+            // 4 5 6
+            // 7 8 9
+            // 由i控制此时遍历的是第几号小方格
+            // 然后确定该方格左上角起始位置的坐标，也就是rowIndex和colIndex
+            // 然后利用j，rowIndex + j / 3可以进入下一行
+            // colIndex + j % 3可以在同一行向右遍历
+            // 从而在j的遍历中走遍小方格的9个子格
+            int rowIndex = 3 * (i / 3);
+            int colIndex = 3 * (i % 3);
 
-            // 验证列
-            for (int row = 0; row < board.length; row++) {
-              if (i == row) continue;
-              if (board[row][j] == board[i][j]) return false;
-            }
+            int x = rowIndex + j / 3;
+            int y = colIndex + j % 3;
 
-            // 验证小方格
-            for (int x = i / 3 * 3; x < (i / 3 + 1) * 3; x++) {
-              for (int y = j / 3 * 3; y <  (j / 3 + 1) * 3; y++) {
-                if (x == i && y == j) continue;
-                if (board[x][y] == board[i][j]) return false;
-              }
-            }
+            if (board[x][y] != '.' && !cub.add(board[x][y])) return false;
           }
         }
 
@@ -210,6 +265,7 @@ class Solution {
         return row && col;
     }
 }
+
 
 
 
