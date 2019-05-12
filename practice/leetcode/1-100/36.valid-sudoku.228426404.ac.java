@@ -81,20 +81,55 @@
  */
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        // 好没意思啊这道题
-        // 就是验证大的9x9里面的 行不重复，列不重复
-        // 验证小的9个3x3里面没有重复
-        // 除非我一会儿在解答里面看见更好的解法，否则我要给这道题打差评了
         if (board == null || board.length == 0) return true;
+        
+        // 这道题我一开始使用的解法I，解出来了觉得没什么意思
+        // 然后看了一个题解的视频，才发现这道题可以用更加优秀的思想解出来
+        // 如果面试考这道题，解法I只能说合格，解法II比较好，解法III才是真的优秀
 
-        boolean ans = validBox(board);
-        for (int i = 0; i < 9; i++) {
-            ans = (ans &&validSubBox(board, i));
+        // 解法I：首先验证大的行和列，然后验证9个小盒子，写的很老实，不够优秀
+        // 老实说，通过hashset来验证元素个数的做法太愚蠢
+        // 解法III同样使用hashest，但是会诠释什么叫优秀
+        // boolean ans = validBox(board);
+        // for (int i = 0; i < 9; i++) {
+        //     ans = (ans && validSubBox(board, i));
+        // }
+        // return ans;
+
+        // 解法II：同样是验证，但是将行和列以及小盒子的验证写到了一起
+        // 比解法I少写了不少代码
+
+        for (int i = 0; i < board.length; i++) {
+          for (int j = 0; j < board[0].length; j++) {
+            if (board[i][j] == '.') continue;
+
+            // 验证行
+            for (int col = 0; col < board[0].length; col++) {
+              if (j == col) continue;
+              if (board[i][col] == board[i][j]) return false;
+            }
+
+            // 验证列
+            for (int row = 0; row < board.length; row++) {
+              if (i == row) continue;
+              if (board[row][j] == board[i][j]) return false;
+            }
+
+            // 验证小方格
+            for (int x = i / 3 * 3; x < (i / 3 + 1) * 3; x++) {
+              for (int y = j / 3 * 3; y <  (j / 3 + 1) * 3; y++) {
+                if (x == i && y == j) continue;
+                if (board[x][y] == board[i][j]) return false;
+              }
+            }
+          }
         }
-        return ans;
+
+        return true;
     }
 
 
+    // 解法I的辅助函数:验证9个小方格
     boolean validSubBox(char[][] arr, int index) {
         int x = index / 3 * 3;
         int y = (index % 3) * 3;
@@ -135,6 +170,7 @@ class Solution {
         return row && col;
     }
 
+    // 解法I的辅助函数：验证行和列
     boolean validBox(char[][] arr) {
         boolean row = true;
         boolean col = true;
@@ -174,5 +210,6 @@ class Solution {
         return row && col;
     }
 }
+
 
 
