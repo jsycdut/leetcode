@@ -57,18 +57,28 @@ class Solution {
         // 直接p.next = p.next.next就删掉了倒数第n个节点
         // 注意，当n恰好为链条长度的时候，q在拉开完身位后就是null了
         // 此时该删除的就是传入的head节点，head = head.next并返回就行了
-        while (n-- > 0){
+
+        // 拉开n个身位
+        while (n-- > 0) {
             q = q.next;
-        }
-        if (q == null){
+        } 
+
+        // 如果拉开n个身位后q已经为空，说明n大于等于链表长度
+        // 删除第一个节点并返回
+        if (q == null) {
             head = head.next;
             return head;
         }
-        while(q != null && q.next != null){
+
+        // 在拉开n个身位后每次都走一步
+        // 直到q在链表结尾，此时p的next就是要删除的倒数第n个节点
+        while (q != null && q.next != null) {
             p = p.next;
             q = q.next;
         }
+
         p.next = p.next.next;
         return head;
     }
 }
+
