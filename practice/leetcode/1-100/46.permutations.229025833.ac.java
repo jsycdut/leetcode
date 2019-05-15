@@ -50,6 +50,7 @@ class Solution {
       // ===================================================
       
 
+      // 解法II：优化的DFS
       List<List<Integer>> list = new ArrayList<>();
 
       optimizedDFS(0, nums, list);
@@ -58,7 +59,7 @@ class Solution {
     }
 
     // 全排列的本质是每个数依次和自己后面的数交换顺序
-    // 注意是只和自己后面的数进行交换，所以必须step <= i
+    // 注意是只和自己后面的数进行交换，所以必须i从step开始
     void optimizedDFS(int step, int[] arr, List<List<Integer>> list) {
       if (step == arr.length) {
         List<Integer> res = new ArrayList<>();
@@ -67,12 +68,10 @@ class Solution {
         return;
       } 
 
-      for (int i = 0; i < arr.length; i++) {
-        if (step <= i) {
-          swap(arr, i, step);
-          optimizedDFS(step + 1, arr, list);
-          swap(arr, step, i);
-        }
+      for (int i = step; i < arr.length; i++) {
+        swap(arr, i, step);
+        optimizedDFS(step + 1, arr, list);
+        swap(arr, step, i);
       }
     }
 
@@ -104,4 +103,5 @@ class Solution {
       }
     }
 }
+
 
