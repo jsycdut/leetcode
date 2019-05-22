@@ -76,7 +76,7 @@ class Solution {
 
       while (count < total) {
         switch(direction) {
-          case 0:
+          case RIGHT:
             if (!flag[m][n]) {
               list.add(matrix[m][n]);
               flag[m][n] = true;
@@ -91,7 +91,7 @@ class Solution {
             }
             break;
 
-          case 1:
+          case DOWN:
             if (!flag[m][n]) {
               list.add(matrix[m][n]);
               flag[m][n] = true;
@@ -107,7 +107,7 @@ class Solution {
 
             break;
 
-          case 2:
+          case LEFT:
             if (!flag[m][n]) {
               list.add(matrix[m][n]);
               flag[m][n] = true;
@@ -123,7 +123,7 @@ class Solution {
 
             break;
 
-          case 3:
+          case UP:
             if (!flag[m][n]) {
               list.add(matrix[m][n]);
               flag[m][n] = true;
@@ -147,4 +147,5 @@ class Solution {
       return list;
     }
 }
+
 
