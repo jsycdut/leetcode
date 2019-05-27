@@ -35,8 +35,9 @@
 class Solution {
 
     // 老套路，仍旧是双指针
-    // 不过需要注意的就是工具类的使用，Character类的toLowerCase静态方法
-    // 以及isLetterOrDigit静态方法
+    // 不过需要注意的就是工具类的使用，Character类的toLowerCase将大写字母转换为小写字母
+    // 以及isLetterOrDigit判断字符是否为大小写字母和数字，当然也可以自己单独写一个检查是否为大小写字母和数字的方法
+    // 比如下面的check方法
     public boolean isPalindrome(String s) {
         // 边界
         if (s == null || s.length() == 0) return true;
@@ -45,25 +46,24 @@ class Solution {
         int right = s.length() - 1;
 
         while (left < right) {
-            if (!Character.isLetterOrDigit(s.charAt(left))) {
-                left++;
-                continue;
-            }
-
-            if (!Character.isLetterOrDigit(s.charAt(right))) {
-                right--;
-                continue;
-            }
-
-            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
-                return false;
+            if (!check(s.charAt(left))) {
+              left++;
+            } else if (!check(s.charAt(right))) {
+              right--;
+            } else if (Character.toLowerCase(s.charAt(left)) == Character.toLowerCase(s.charAt(right))) {
+              left++;
+              right--;
             } else {
-                left++;
-                right--;
+              return false;
             }
         }
 
         return true;
+    }
+  
+    // 检查大小写字母或者数字
+    boolean check(char c) {
+      return ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9');
     }
 }
 
