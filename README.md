@@ -17,6 +17,11 @@ algorithms/
 
 最近都在刷[leetcode](https://leetcode.com/)，使用[leetcode-cli](https://github.com/skygragon/leetcode-cli)刷题，因为这个工具可以生成带有题目详细信息的可提交代码，对于我这种懒得动鼠标的人来说，真的非常方便。
 
+## 进度记录
+
+* long long ago ~ 2019.05.19 AC 100
+* 2019.05.20 ~ 2019.06.20 AC to be continued 
+
 ## 优秀算法项目推荐
 
 * [用动画的形式呈现解LeetCode题目的思路](https://github.com/MisterBooo/LeetCodeAnimation)
