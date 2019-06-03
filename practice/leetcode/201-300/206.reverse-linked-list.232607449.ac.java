@@ -12,19 +12,19 @@
  * Testcase Example:  '[1,2,3,4,5]'
  *
  * Reverse a singly linked list.
- * 
+ *
  * Example:
- * 
- * 
+ *
+ *
  * Input: 1->2->3->4->5->NULL
  * Output: 5->4->3->2->1->NULL
- * 
- * 
+ *
+ *
  * Follow up:
- * 
+ *
  * A linked list can be reversed either iteratively or recursively. Could you
  * implement both?
- * 
+ *
  */
 /**
  * Definition for singly-linked list.
@@ -36,25 +36,35 @@
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-        // 边界检查 
-        if (head == null) {
-            return null;
-        }
-        
-        // 只需两个节点就可以完成反转链表
-        // so easy
-        ListNode prev = null;
-        ListNode bridge = head;
-        
-        while (head != null) {
-            bridge = head;
-            head = head.next;
-            bridge.next = prev;
-            prev = bridge;
-        }
+      // 递归的神仙做法，我喜欢
+      if (head == null || head.next == null) return head;
 
-        return prev;
-        
+      ListNode newHead = reverseList(head.next);
+
+      head.next.next = head;
+      head.next = null;
+
+      return newHead;
     }
+    // 常规做法，迭代反转链表
+    // public ListNode reverseList(ListNode head) {
+    //     if (head == null) {
+    //         return null;
+    //     }
+    //
+    //     ListNode prev = null;
+    //     ListNode bridge = head;
+    //
+    //     while (head != null) {
+    //         bridge = head;
+    //         head = head.next;
+    //         bridge.next = prev;
+    //         prev = bridge;
+    //     }
+
+    //     return prev;
+    //
+    // }
 }
+
 
