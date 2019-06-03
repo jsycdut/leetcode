@@ -82,7 +82,7 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
         if (board == null || board.length == 0) return true;
-        
+
         // 这道题我一开始使用的解法I，解出来了觉得没什么意思
         // 然后看了一个题解的视频，才发现这道题可以用更加优秀的思想解出来
         // 如果面试考这道题，解法I只能说合格，解法II比较好，解法III才是真的优秀
@@ -138,45 +138,75 @@ class Solution {
         //    没必要像解法I中那样去算集合中的元素个数
         // 2. 特别注意求解小方格里面重复元素的解法
 
+        // for (int i = 0; i < board.length; i++) {
+        //   Set<Character> row = new HashSet<>();
+        //   Set<Character> col = new HashSet<>();
+        //   Set<Character> cub = new HashSet<>();
+
+        //   for (int j = 0; j < board[0].length; j++) {
+        //     if (board[i][j] != '.' && !row.add(board[i][j])) return false;
+        //     if (board[j][i] != '.' && !col.add(board[j][i])) return false;
+
+        //     // 下面的确实是太酷了，利用i和j依次实现了9个小方格的遍历
+        //     // x和y代表着每个小方格里面的9个坐标，太棒了
+        //     //
+        //     // 5  3  .  .  7  .  .  .  .
+        //     // 6  .  .  1  9  5  .  .  .
+        //     // .  9  8  .  .  .  .  6  .
+        //     // 8  .  .  .  6  .  .  .  3
+        //     // 4  .  .  8  .  3  .  .  1
+        //     // 7  .  .  .  2  .  .  .  6
+        //     // .  6  .  .  .  .  2  8  .
+        //     // .  .  .  4  1  9  .  .  5
+        //     // .  .  .  .  8  .  .  7  9
+        //     //
+        //     // rowIndex colIndex依次代表着每一行三个小方格的横坐标和纵坐标
+        //     // 假设上面9x9的9个小方格的序号如下
+        //     // 1 2 3
+        //     // 4 5 6
+        //     // 7 8 9
+        //     // 由i控制此时遍历的是第几号小方格
+        //     // 然后确定该方格左上角起始位置的坐标，也就是rowIndex和colIndex
+        //     // 然后利用j，rowIndex + j / 3可以进入下一行
+        //     // colIndex + j % 3可以在同一行向右遍历
+        //     // 从而在j的遍历中走遍小方格的9个子格
+        //     int rowIndex = 3 * (i / 3);
+        //     int colIndex = 3 * (i % 3);
+
+        //     int x = rowIndex + j / 3;
+        //     int y = colIndex + j % 3;
+
+        //     if (board[x][y] != '.' && !cub.add(board[x][y])) return false;
+        //   }
+        // }
+
+        // return true;
+        // ================================================================================
+        // 解法IV: 空间换时间的做法
+
+        // 下面的三个二维数组代表对应行, 列, 以及对应编号的小方格内被填充的数字的情况
+        // 被填充了某个数组, 就把对应位置为true
+        // row[i][value]为true, 代表的是数独的第i行, 存在value这个数字
+        // col[j][value]为true, 代表的是数独的第j列, 存在value这个数字
+        // grid[gridNumber][value]为true, 代表的而是数独的第gridNumber号小方格, 存在value这个数字
+        // 如果在检查某个数独位置的时候, 发现这一行或者列或者小方格已经填充过了对应的值, 就说明数独不合法
+        boolean[][] row = new boolean[10][10];
+        boolean[][] col = new boolean[10][10];
+        boolean[][] grid = new boolean[10][10];
+
         for (int i = 0; i < board.length; i++) {
-          Set<Character> row = new HashSet<>();
-          Set<Character> col = new HashSet<>();
-          Set<Character> cub = new HashSet<>();
-
           for (int j = 0; j < board[0].length; j++) {
-            if (board[i][j] != '.' && !row.add(board[i][j])) return false;
-            if (board[j][i] != '.' && !col.add(board[j][i])) return false;
+            if (board[i][j] != '.') {
+              int value = board[i][j] - '0'; // 当前被填充的是数字0~9中的哪一位
+              int gridNumber = (i / 3) * 3 + (j / 3); // 小方格的编号
 
-            // 下面的确实是太酷了，利用i和j依次实现了9个小方格的遍历
-            // x和y代表着每个小方格里面的9个坐标，太棒了
-            //
-            // 5  3  .  .  7  .  .  .  .
-            // 6  .  .  1  9  5  .  .  .
-            // .  9  8  .  .  .  .  6  .
-            // 8  .  .  .  6  .  .  .  3
-            // 4  .  .  8  .  3  .  .  1
-            // 7  .  .  .  2  .  .  .  6
-            // .  6  .  .  .  .  2  8  .
-            // .  .  .  4  1  9  .  .  5
-            // .  .  .  .  8  .  .  7  9
-            //
-            // rowIndex colIndex依次代表着每一行三个小方格的横坐标和纵坐标
-            // 假设上面9x9的9个小方格的序号如下
-            // 1 2 3
-            // 4 5 6
-            // 7 8 9
-            // 由i控制此时遍历的是第几号小方格
-            // 然后确定该方格左上角起始位置的坐标，也就是rowIndex和colIndex
-            // 然后利用j，rowIndex + j / 3可以进入下一行
-            // colIndex + j % 3可以在同一行向右遍历
-            // 从而在j的遍历中走遍小方格的9个子格
-            int rowIndex = 3 * (i / 3);
-            int colIndex = 3 * (i % 3);
+              if (row[i][value] || col[j][value] || grid[gridNumber][value]) return false;
 
-            int x = rowIndex + j / 3;
-            int y = colIndex + j % 3;
+              row[i][value] = true; // 数独的第i行, 已经填充了值为value的数字, 记录到row的i行里面(把row[i][value]置为true)
+              col[j][value] = true; // 数独的第j列, 已经填充了值为value的数字, 记录到col的j行里面(把col[j][value]置为true)
+              grid[gridNumber][value] = true; // 数独的第gridNumber号小方格, 已经填充了值为value的数字, 记录到grid的gridNumber行里面
+            }
 
-            if (board[x][y] != '.' && !cub.add(board[x][y])) return false;
           }
         }
 
@@ -265,6 +295,7 @@ class Solution {
         return row && col;
     }
 }
+
 
 
 
