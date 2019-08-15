@@ -33,7 +33,7 @@
 class Solution {
     public int minPathSum(int[][] grid) {
       // 二维矩阵从左上角到右下角的最小路径和
-      // 典型的dp题，状态转译方程为
+      // 典型的dp题，状态转移方程为
       // dp[row][col] = min(dp[row - 1][col], dp[row][col - 1]) + grid[row][col]
       if (grid == null || grid.length == 0) return -1;
 
