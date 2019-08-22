@@ -72,6 +72,10 @@ class Solution {
 	return;
       }
 
+      // step代表递归深度，在这里是数组的长度
+      // 当前深度可以使用该数字0-N次，下面看起来是使用了1-N次
+      // 但是由于add和remove的使用，导致最后在本轮进入下一轮的最后一次时
+      // add和remvoe次数相等，等于使用当前数字0次
       for (int i = step; i < candidates.length; i++) {
 	if (candidates[i] > target) return;
         recorder.add(candidates[i]);
