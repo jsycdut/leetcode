@@ -30,4 +30,6 @@ algorithms/
 
 ## 解题交流
 
-* 微信ID：INDUSTRIOUS_JINSHIYU
+* 微信
+
+![wechat_pic](https://raw.githubusercontent.com/jsycdut/photos/master/contact/wechat.jpg)
