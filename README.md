@@ -32,4 +32,6 @@ algorithms/
 
 * 微信
 
-![wechat_pic](https://raw.githubusercontent.com/jsycdut/photos/master/contact/wechat.jpg)
+<p align="center">
+  <img width="282" height="393" src="https://raw.githubusercontent.com/jsycdut/photos/master/contact/wechat.jpg">
+</p>
