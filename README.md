@@ -30,7 +30,7 @@ algorithms/
 
 ## 解题交流
 
-* 微信
+* **微信** (加好友填写 `leetcode github` 两个关键字即可)
 
 <p align="center">
   <img width="282" height="393" src="https://raw.githubusercontent.com/jsycdut/photos/master/contact/wechat.jpg">
