@@ -55,7 +55,7 @@ class Solution {
     // 注意讨论区 x = 2147483467 y = 1 z = 1 这组测例
     //
     public boolean canMeasureWater(int x, int y, int z) {
-      if (x == z || y == z || x + y == z) return true;
+      if (x == z || y == z || x + y == z) return true; // 避免测例溢出
       if (x + y < z) return false;
 
       return z % gcd(x, y) == 0;
