@@ -59,5 +59,27 @@ class Solution {
         recur(node.left, list);
         recur(node.right, list);
     }
+
+    // 迭代求解，利用栈，在Java里用Deque做栈，不采用Stack这个类
+    public List<Integer> preorderTraversal(TreeNode root) {
+      if (root == null) return Collections.emptyList();
+
+      Deque<TreeNode> q = new ArrayDeque<>();
+      List<Integer> ans = new ArrayList<>();
+
+      q.offerFirst(root);
+
+      while (! q.isEmpty()) {
+        TreeNode node = q.poll();
+        ans.add(node.val);
+
+        // 栈，先入右节点，后左节点
+        // 要检查null，因为Queue不允许null元素
+        if (node.right != null) q.offerFirst(node.right);
+        if (node.left != null) q.offerFirst(node.left);
+      }
+
+      return ans;
+    }
 }
 
