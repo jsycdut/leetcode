@@ -29,3 +29,10 @@ int gcd(int a, int b)
 
   return a;
 }
+
+int recur(int a, int b)
+{
+  if (a == 0) return b;
+
+  return recur(b % a, a);
+}
