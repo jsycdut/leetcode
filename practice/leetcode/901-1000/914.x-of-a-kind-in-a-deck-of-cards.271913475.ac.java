@@ -96,11 +96,29 @@ class Solution {
     // 如果这个最大公约数 >= 2，则true，否则false
     // 其实就是考察一个gcd
     public boolean hasGroupsSizeX(int[] deck) {
-      Map<Integer, Integer> map = new HashMap<>();
-      for (int i : deck) map.put(i, map.getOrDefault(i, 0) + 1);
+      // Map<Integer, Integer> map = new HashMap<>();
+      // for (int i : deck) map.put(i, map.getOrDefault(i, 0) + 1);
 
-      int factor = map.get(deck[0]);
-      for (int i : map.values()) factor = gcd(factor, i);
+      // int factor = map.get(deck[0]);
+      // for (int i : map.values()) factor = gcd(factor, i);
+
+      // return factor >= 2;
+
+      // 下面采用位图的做法来统计牌面出现的次数要快一些
+      // 因为免去了使用map
+      // 注意题干说的
+      // 1 <= deck.length <= 10000
+      // 0 <= deck[i] < 10000
+      // 所以用一个长度不大于10000的数组就可以统计了
+      int[] bitmap = new int[10001];
+      for (int i : deck) bitmap[i]++;
+
+      int factor = 0;
+      for (int i : bitmap) {
+        if (i != 0) {
+          factor = gcd(factor, i);
+        }
+      }
 
       return factor >= 2;
     }
