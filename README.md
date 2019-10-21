@@ -29,7 +29,7 @@ algorithms/
 * [CyC2018（中山大学郑永川）leetcode题解](https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Leetcode%20%E9%A2%98%E8%A7%A3%20-%20%E7%9B%AE%E5%BD%95.md)
 
 ## 解题交流
-
+* **[leetcode主页](https://leetcode.com/jsyOnFire/)** 
 * **微信** (加好友填写 `leetcode github` 两个关键字即可)
 
 <p align="center">
