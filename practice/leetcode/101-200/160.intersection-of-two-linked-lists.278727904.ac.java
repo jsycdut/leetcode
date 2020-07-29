@@ -131,3 +131,57 @@ public class Solution {
     }
 }
 
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        
+        //    |<------L1---->|<---C---->|
+        // A: 1 -> 3 -> 5 -> 7 -> 9 -> 11
+        //                    /       
+        //                   /
+        //     B: 2 -----> 4
+        //        |<--L2-->|
+        // A B各自出发，规定：每次各自都走一步，走到当前链表尾部后(为null)
+        // 选择另一条链表的开头，然后把另外一条链表走一遍，到最后
+        // A会位于原来B链表的结尾，B会位于原来A链表的结尾，如果两条链表有交集
+        // 那么A链表的结尾和B链表的结尾是同一个位置（前面可能有很多相同的位置，比如上面的9和11
+        // 所以肯定能相遇
+        // 对上面的链表按照股则走如下
+        //    |----------走完A链表--------------|----------走完B链表-------------|
+        // A: 1 -> 3 -> 5 -> 7 -> 9 -> 11 -> null -> 2 -> 4 -> 7 -> 9 -> 11 -> null
+        //
+        //    |------走完B链表-----------|-----------------走完A链表-------------|
+        // B: 2 -> 4 -> 7 -> 9 -> 11 -> null -> 1 -> 3 -> 5 -> 7 -> 9 -> 11 -> null
+
+        // 对于不相交的链表有如
+        // A: 1
+        // B: 2 -> 3
+        // 那么A的走法为
+        //    |--A---|------B---------|
+        // A: 1 -> null -> 2 -> 3 -> null
+        // B的走法为
+        //    |----B-----|-------A----|
+        // B: 2 -> 3 -> null -> 1 -> null
+        // 最后都会为null的啦
+        ListNode node1 = headA;
+        ListNode node2 = headB;
+        
+        while (node1 != node2) {
+            node1 = node1 == null ? headB : node1.next;
+            node2 = node2 == null ? headA : node2.next;
+        }
+        
+        return node1;
+    }
+}
