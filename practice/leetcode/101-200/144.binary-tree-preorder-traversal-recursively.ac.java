@@ -81,5 +81,21 @@ class Solution {
 
       return ans;
     }
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if (root == null) return Collections.emptyList();
+        
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root);
+        List<Integer> ans = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            ans.add(node.val);
+            if (node.right != null) stack.push(node.right);
+            if (node.left != null) stack.push(node.left);
+        }
+        
+        return ans;
+    }
 }
 
