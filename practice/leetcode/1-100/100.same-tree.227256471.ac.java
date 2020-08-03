@@ -70,6 +70,7 @@ class Solution {
     // 两个节点都为空，则为true，此时本次递归完成，为递归的出口
     // 两个节点都不为空且值相同，也为true，然后就该递归判断该节点的左右节点
     // 剩下的情况也是递归出口，不过返回的是false
+    // my code in 2019
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if ((p == null && q == null)) {
             return true;
@@ -79,6 +80,17 @@ class Solution {
             return false;
         }
 
+    }
+
+    // my code in 2020
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) return true;
+        return true // 强行对齐，最为致命
+            && p != null 
+            && q != null 
+            && p.val == q.val 
+            && isSameTree(p.left, q.left) 
+            && isSameTree(p.right, q.right);
     }
 }
 
