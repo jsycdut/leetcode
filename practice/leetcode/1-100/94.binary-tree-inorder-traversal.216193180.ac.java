@@ -53,5 +53,25 @@ class Solution {
         list.add(node.val);
         recur(node.right, list);
     }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if (root == null) return Collections.emptyList();
+        
+        Deque<TreeNode> stack = new LinkedList<>();
+        List<Integer> ans = new ArrayList<>();
+        TreeNode cur = root;
+        while (cur != null || !stack.isEmpty()) {
+            while (cur != null) {
+                stack.push(cur);
+                cur = cur.left;
+            }
+            
+            cur = stack.pop();
+            ans.add(cur.val);
+            cur = cur.right;
+        }
+        
+        return ans;
+    }
 }
 
