@@ -1,5 +1,20 @@
 /**
- * https://leetcode-cn.com/problems/house-robber-ii/
+ * 打家劫舍I: https://leetcode-cn.com/problems/house-robber
+ * 打家劫舍II: https://leetcode-cn.com/problems/house-robber-ii/
+ * 打家劫舍III： https://leetcode-cn.com/problems/house-robber-iii/
+ *
+ * 本题为打家劫舍第2题，与第一题的不同就是首尾不能同时抢，那么分两种情况讨论
+ *
+ * 1. 抢第一家
+ * 2. 不抢第一家
+ *
+ * 如果抢了第一家，那么下一次下手得从第三家开始，然后到倒数第二家结束
+ * 如果第一家不抢，那么下一次下手就是从第二家开始，到最后一家结束
+ *
+ * 抢的过程中当前能抢到的最大值依然是分抢当前，不抢当前这家两种记录
+ * 然后最后比较最值就行了
+ *
+ * 我在写题解？？？ 防止老年痴呆？？？
  */
 class Solution {
     public int rob(int[] nums) {
