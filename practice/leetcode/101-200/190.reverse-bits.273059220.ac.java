@@ -122,6 +122,32 @@ public class Solution {
 
       return res;
     }
+
+    /**
+     * 2021年第一次做的时候想到的办法
+     * 虽然不够好，但是可以看到的可读性还是比较不错
+     */
+    public int reverseBits2021(int n) {
+      final int TOTAL_BITS = 31;
+      for (int lowIndex = 0; lowIndex <= TOTAL_BITS / 2; lowIndex++) {
+        int valueAtLowIndex = getBitAt(n, lowIndex);
+        int valueAtHighIndex = getBitAt(n, TOTAL_BITS - lowIndex);
+        if (valueAtHighIndex != valueAtLowIndex) {
+          n = reverseBitAt(n, lowIndex);
+          n = reverseBitAt(n, TOTAL_BITS - lowIndex);
+        }
+      }
+
+      return n;
+    }
+
+    int getBitAt(int value, int index) {
+      return (value & (1 << index)) == 0 ? 0 : 1;
+    }
+
+    int reverseBitAt(int value, int index) {
+      return value ^ (1 << index);
+    }
 }
 
 
