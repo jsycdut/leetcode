@@ -85,3 +85,39 @@ class Solution {
     }
 }
 
+/**
+ * solution in 2021
+ */
+class Solution2 {
+  // 使用全局变量，来减少递归时带的参数个数
+  LinkedList<Integer> temp;
+  List<List<Integer>> ans;
+  int[] array;
+
+  public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    if (candidates == null || candidates.length == 0) 
+        return Collections.emptyList();
+
+    array = candidates;
+    temp = new LinkedList<>();
+    ans = new ArrayList<>();
+
+    traverse(0, 0, target);
+    return ans;
+  }
+
+  void traverse(int step, int sum, int target) {
+
+    if (step == array.length || sum > target) return;
+    if (sum == target) {
+      ans.add(new ArrayList<>(temp));
+      return;
+    }
+
+    // 使用LinkedList直接访问链表的最后一个元素
+    traverse(step + 1, sum, target);
+    temp.addLast(array[step]);
+    traverse(step, sum + array[step], target);
+    temp.removeLast();
+  }
+}
