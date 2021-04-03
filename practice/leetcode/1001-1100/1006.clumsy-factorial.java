@@ -36,4 +36,32 @@ public class Solution {
 
     return ans + lastBlock;
   }
+
+  public int clumsy2(int N) {
+    Deque<Integer> stack = new ArrayDeque<>();
+    stack.push(N);
+    int index = 0;
+
+    while (--N > 0) {
+      switch(index % 4) {
+        case 0: stack.push(stack.pop() * N);
+                break;
+        case 1: stack.push(stack.pop() / N);
+                break;
+        case 2: stack.push(N);
+                break;
+        case 3: stack.push(-N);
+                break;
+        default: return 0;
+      }
+      index++;
+    }
+
+    int sum = 0;
+    while (!stack.isEmpty()) {
+      sum += stack.pop();
+    }
+
+    return sum;
+  }
 }
