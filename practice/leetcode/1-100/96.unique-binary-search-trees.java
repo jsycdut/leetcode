@@ -19,3 +19,25 @@ class Solution {
         return cnt;
     }
 }
+
+class Solution {
+    int[][] table;
+    public int numTrees(int n) {
+        table = new int[n+1][n+1];
+        return count(1, n);
+    }
+
+    int count(int l, int r) {
+        if (l >= r) return 1;
+        if (table[l][r]!=0)  return table[l][r];
+
+        int ans = 0;
+        for (int i = l; i <= r; i++) {
+            ans += count(l, i-1) * count(i+1, r);
+        }
+        table[l][r] = ans;
+        return ans;
+    }
+}
+
+
