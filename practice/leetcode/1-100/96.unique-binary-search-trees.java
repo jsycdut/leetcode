@@ -41,3 +41,18 @@ class Solution {
 }
 
 
+class Solution {
+    public int numTrees(int n) {
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+        dp[1] = 1;
+        // g(x)长度为x的序列的二叉搜索树的数量
+        for (int i = 2; i <= n; i++) { // 范围
+            for (int j = 1; j <= i; j++) { // 枚举该范围内的所有根节点
+                dp[i] = dp[i] + dp[j-1] * dp[i - j];
+            }
+        }
+
+        return dp[n];
+    }
+}
