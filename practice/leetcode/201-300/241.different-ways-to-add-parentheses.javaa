@@ -1,0 +1,66 @@
+class Solution {
+    static final int ADDITION = -1;
+    static final int SUBTRACTION = -2;
+    static final int MULTIPLICATION = -3;
+    List<Integer>[][] mem;
+
+    public List<Integer> diffWaysToCompute(String expression) {
+        List<Integer> ops = new ArrayList<>();
+        for (int i = 0; i < expression.length();) {
+            char c = expression.charAt(i);
+            if (!Character.isDigit(c)) {
+                if (c == '+') {
+                    ops.add(ADDITION);
+                } else if (c == '-') {
+                    ops.add(SUBTRACTION);
+                } else {
+                    ops.add(MULTIPLICATION);
+                }
+                i++;
+            } else {
+                int t = 0;
+                while (i < expression.length() && Character.isDigit(expression.charAt(i))) {
+                    t = t * 10 + (expression.charAt(i) - '0');
+                    i++;
+                }
+                ops.add(t);
+            }
+        }
+
+        // 记忆表
+        mem = new ArrayList[expression.length()][expression.length()];
+        return dfs(ops, 0, ops.size() - 1, mem);
+    }
+
+    List<Integer> dfs(List<Integer> ops, int lo, int hi, List<Integer>[][] mem) {
+        if (lo == hi)
+            return Arrays.asList(ops.get(lo));
+        if (lo > hi)
+            return Arrays.asList();
+        if (mem[lo][hi] != null) {
+            return mem[lo][hi];
+        }
+
+        List<Integer> ans = new ArrayList<>();
+        for (int i = lo; i <= hi; i++) {
+            int op = ops.get(i);
+            if (op == ADDITION || op == SUBTRACTION || op == MULTIPLICATION) {
+                List<Integer> l = dfs(ops, lo, i - 1, mem);
+                List<Integer> r = dfs(ops, i + 1, hi,mem);
+                for (int m : l) {
+                    for (int n : r) {
+                        if (op == ADDITION) {
+                            ans.add(m + n);
+                        } else if (op == SUBTRACTION) {
+                            ans.add(m - n);
+                        } else {
+                            ans.add(m * n);
+                        }
+                    }
+                }
+                mem[lo][hi] = ans;
+            }            
+        }
+        return ans;
+    }
+}
